@@ -11,6 +11,14 @@ float scaleFactor = 10.0;
 
 void setup() {
   TrinketMouse.begin();
+  int halfHeight = height / 2;
+  int halfWidth = width / 2;
+  drawNext(0, halfHeight);
+  drawNext(0, halfHeight * -1);
+  upCursor();
+  drawNext(halfWidth * -1, 0);
+  drawNext(halfWidth, 0);
+  upCursor();
 }
 
 void loop() {
@@ -97,14 +105,4 @@ void drawNext(float x, float y) {
 
 void upCursor() {
   TrinketMouse.move(0, 0, 0, 0); // reset cursor
-}
-
-void moveCursor(float x, float y) {
-  TrinketMouse.move(0, 0, 0, 0); // reset cursor
-  if (checkValid(x, y)) {
-    int normX;
-    int normY;
-    calcCoords(x, y, normX, normY);
-    TrinketMouse.move(normX, normY, 0, 0);
-  }
 }
