@@ -55,7 +55,7 @@ boolean checkValid(float x, float y) {
   int tempX = round(x) - startX;
   boolean testX = (tempX >= 0) && (tempX <= height);
   int tempY = round(y) + startY;
-  boolean testY (tempY >= 0) && (tempY <= height);
+  boolean testY = (tempY >= 0) && (tempY <= height);
   return testX && testY;
 }
 
