@@ -59,7 +59,7 @@ boolean checkValid(float x, float y) {
 }
 
 void scaleCoords(float x, float y, int &resX, int &resY) {
-  resX = round((x + startX) * scaleFactor);
+  resX = round((x - startX) * scaleFactor);
   resY = round((y - startY) * scaleFactor * -1);
 }
 
