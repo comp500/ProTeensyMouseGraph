@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  if (!checkX(i)) {
+  /*if (!checkX(i)) {
     TrinketMouse.move(0, 0, 0, 0); // reset movement
     TrinketMouse.move((-1 * currentX), (-1 * currentY), 0, 0);
     currentX = 0;
@@ -33,7 +33,16 @@ void loop() {
     }
     i++;
     delay(50);
+  }*/
+  if (i < (width - startX)) {
+    drawNext(i*2, 10);
+    drawNext(i*2, -10);
+    moveCursor((i*2)-1);
+    i++;
+  } else {
+    i = startX;
   }
+  delay(50);
 }
 
 float compute(int x) {
