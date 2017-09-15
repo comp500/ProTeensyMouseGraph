@@ -75,7 +75,7 @@ void calcCoords(float x, float y, int &resX, int &resY) {
   currentY = currentY + resY;
 }
 
-void drawNext(float x, float y, boolean clickThrough, boolean clickAfter) {
+void drawNext(float x, float y, boolean clickThrough) {
   if (checkValid(x, y)) {
     int mask = clickThrough ? MOUSEBTN_LEFT_MASK : 0;
     int normX;
