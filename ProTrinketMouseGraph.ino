@@ -41,6 +41,7 @@ void loop() {
     i++;
   } else {
     i = startX;
+    delay(5000);
   }
   delay(50);
 }
