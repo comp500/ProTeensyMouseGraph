@@ -14,8 +14,6 @@ void setup() {
 }
 
 void loop() {
-  if (TrinketMouse.isConnected() == 0) return;
-
   if (i == startX) {
     int halfHeight = height / 2;
     int halfWidth = width / 2;
