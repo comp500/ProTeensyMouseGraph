@@ -78,12 +78,11 @@ void drawNext(float x, float y) {
 }
 
 void moveCursor(float x, float y) {
+  TrinketMouse.move(0, 0, 0, 0); // reset cursor
   if (checkValid(x, y)) {
     int normX;
     int normY;
     calcCoords(x, y, normX, normY);
     TrinketMouse.move(normX, normY, 0, 0);
-  } else {
-    TrinketMouse.move(0, 0, 0, 0); // don't move, reset cursor
   }
 }
