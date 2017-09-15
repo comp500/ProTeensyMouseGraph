@@ -11,38 +11,23 @@ float scaleFactor = 10.0;
 
 void setup() {
   TrinketMouse.begin();
-  int halfHeight = height / 2;
-  int halfWidth = width / 2;
-  drawNext(0, halfHeight);
-  drawNext(0, halfHeight * -1);
-  upCursor();
-  drawNext(halfWidth * -1, 0);
-  drawNext(halfWidth, 0);
-  upCursor();
 }
 
 void loop() {
-  /*if (!checkX(i)) {
-    TrinketMouse.move(0, 0, 0, 0); // reset movement
-    TrinketMouse.move((-1 * currentX), (-1 * currentY), 0, 0);
-    currentX = 0;
-    currentY = 0;
-    i = startX;
-    delay(8000);
-  } else {
-    float newY = compute(i);
-    if (checkY(newY)) {
-      int normalizedX = normalizeX(i);
-      int normalizedY = normalizeY(newY);
+  if (TrinketMouse.isConnected() == 0) return;
 
-      currentX += normalizedX;
-      currentY += normalizedY;
-      TrinketMouse.move(normalizedX, normalizedY, 0, MOUSEBTN_LEFT_MASK);
-    }
-    i++;
-    delay(50);
-  }*/
-  if (i < (width - startX)) {
+  if (i == startX) {
+    int halfHeight = height / 2;
+    int halfWidth = width / 2;
+    drawNext(0, halfHeight);
+    drawNext(0, halfHeight * -1);
+    upCursor();
+    drawNext(halfWidth * -1, 0);
+    drawNext(halfWidth, 0);
+    upCursor();
+  }
+
+  if (i <= (width - startX)) {
     drawNext(i*2, 10);
     drawNext(i*2, -10);
     upCursor();
