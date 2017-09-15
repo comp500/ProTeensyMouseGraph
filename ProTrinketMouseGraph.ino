@@ -75,12 +75,64 @@ void calcCoords(float x, float y, int &resX, int &resY) {
   currentY = currentY + resY;
 }
 
-void drawNext(float x, float y) {
+void drawNext(float x, float y, boolean clickThrough, boolean clickAfter) {
   if (checkValid(x, y)) {
+    int mask = clickThrough ? MOUSEBTN_LEFT_MASK : 0;
     int normX;
     int normY;
     calcCoords(x, y, normX, normY);
-    TrinketMouse.move(normX, normY, 0, MOUSEBTN_LEFT_MASK);
+
+    // Loops because it's a short
+    int loopsX = ceil(normX / 127);
+    int loopsY = ceil(normY / 127);
+    int totalLoops = abs(loopsX) + abs(loopsY);
+
+    for (int j = 0; j < totalLoops; j++) {
+      int moveX = 0;
+      int moveY = 0;
+      if (loopsX != 0) {
+        if (loopsX < 0) {
+          if (loopsX == -1) {
+            moveX = normX;
+          } else {
+            normX = normX + 127;
+            moveX = -127;
+          }
+          loopsX++;
+        } else {
+          if (loopsX == 1) {
+            moveX = normX;
+          } else {
+            normX = normX - 127;
+            moveX = 127;
+          }
+          loopsX--;
+        }
+      }
+      if (loopsY != 0) {
+        if (loopsY < 0) {
+          if (loopsY == -1) {
+            moveY = normY;
+          } else {
+            normY = normY + 127;
+            moveY = -127;
+          }
+          loopsY++;
+        } else {
+          if (loopsY == 1) {
+            moveY = normY;
+          } else {
+            normY = normY - 127;
+            moveY = 127;
+          }
+          loopsY--;
+        }
+      }
+      TrinketMouse.move(normX, normY, 0, mask);
+    }
+    if (clickAfter) {
+      TrinketMouse.move(0, 0, 0, MOUSEBTN_LEFT_MASK);
+    }
   } else {
     TrinketMouse.move(0, 0, 0, 0); // don't draw, reset cursor
   }
