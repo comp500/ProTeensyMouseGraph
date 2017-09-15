@@ -7,7 +7,7 @@ int height = 20; // maths units
 int width = 20; // maths units
 int currentX = 0; // screen units
 int currentY = 0; // screen units
-float scaleFactor = 2.0;
+float scaleFactor = 5.0;
 
 void setup() {
   TrinketMouse.begin();
@@ -17,18 +17,18 @@ void loop() {
   if (i == startX) {
     int halfHeight = height / 2;
     int halfWidth = width / 2;
-    drawNext(0, halfHeight);
-    drawNext(0, halfHeight * -1);
+    drawNext(0, halfHeight, false);
+    drawNext(0, halfHeight * -1, true);
     upCursor();
-    drawNext(halfWidth * -1, 0);
-    drawNext(halfWidth, 0);
+    drawNext(halfWidth * -1, 0, false);
+    drawNext(halfWidth, 0, true);
     upCursor();
   }
 
   if (i <= (width - startX)) {
     // (i*2, 10);
     //drawNext(i*2, -10);
-    drawNext(i, pow(i,2));
+    drawNext(i, pow(i,2), true);
     i++;
   } else {
     i = startX;
@@ -130,9 +130,6 @@ void drawNext(float x, float y, boolean clickThrough, boolean clickAfter) {
       }
       TrinketMouse.move(normX, normY, 0, mask);
     }
-    if (clickAfter) {
-      TrinketMouse.move(0, 0, 0, MOUSEBTN_LEFT_MASK);
-    }
   } else {
     TrinketMouse.move(0, 0, 0, 0); // don't draw, reset cursor
   }
@@ -140,4 +137,8 @@ void drawNext(float x, float y, boolean clickThrough, boolean clickAfter) {
 
 void upCursor() {
   TrinketMouse.move(0, 0, 0, 0); // reset cursor
+}
+
+void downCursor() {
+  TrinketMouse.move(0, 0, 0, MOUSEBTN_LEFT_MASK);
 }
