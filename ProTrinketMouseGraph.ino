@@ -80,8 +80,8 @@ void deltaCoords(float x, float y, int &resX, int &resY) {
 void calcCoords(float x, float y, int &resX, int &resY) {
   scaleCoords(x, y, resX, resY);
   deltaCoords(resX, resY, resX, resY);
-  currentX += resX;
-  currentY += resY;
+  currentX = currentX + resX;
+  currentY = currentY + resY;
 }
 
 void drawNext(float x, float y) {
