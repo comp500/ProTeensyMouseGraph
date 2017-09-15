@@ -37,7 +37,7 @@ void loop() {
   if (i < (width - startX)) {
     drawNext(i*2, 10);
     drawNext(i*2, -10);
-    moveCursor((i*2)-1);
+    upCursor();
     i++;
   } else {
     i = startX;
@@ -85,6 +85,10 @@ void drawNext(float x, float y) {
   } else {
     TrinketMouse.move(0, 0, 0, 0); // don't draw, reset cursor
   }
+}
+
+void upCursor() {
+  TrinketMouse.move(0, 0, 0, 0); // reset cursor
 }
 
 void moveCursor(float x, float y) {
