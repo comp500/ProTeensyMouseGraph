@@ -36,47 +36,54 @@ void loop() {
   }
 }
 
-boolean checkX(float x) {
-  int tempX = round(x) - startX;
-  return (tempX >= 0) && (tempX <= height);
-}
-
-boolean checkY(float y) {
-  int tempY = round(y) + startY;
-  return (tempY >= 0) && (tempY <= height);
-}
-
-int normalizeX(float x) {
-  int scaledX = round((x + startX) * scaleFactor);
-  int result = scaledX - currentX;
-  return result;
-}
-
-int normalizeY(float y) {
-  int scaledY = round((y - startY) * scaleFactor * -1);
-  int result = scaledY - currentY;
-  return result;
-}
-
 float compute(int x) {
   //return x;
   return pow(x,2);
 }
 
-void drawNext(float x, float y) {
-
-}
-
-void moveCursor(float x, float y) {
-
-}
-
 boolean checkValid(float x, float y) {
   int tempX = round(x) - startX;
   boolean testX = (tempX >= 0) && (tempX <= height);
+  int tempY = round(y) + startY;
+  boolean testY (tempY >= 0) && (tempY <= height);
+  return testX && testY;
 }
 
 void scaleCoords(float x, float y, int &resX, int &resY) {
-
+  resX = round((x + startX) * scaleFactor);
+  resY = round((y - startY) * scaleFactor * -1);
 }
 
+void deltaCoords(float x, float y, int &resX, int &resY) {
+  resX = x - currentX;
+  resY = y - currentY;
+}
+
+void calcCoords(float x, float y, int &resX, int &resY) {
+  scaleCoords(x, y, resX, resY);
+  deltaCoords(resX, resY, resX, resY);
+  currentX += resX;
+  currentY += resY;
+}
+
+void drawNext(float x, float y) {
+  if (checkValid(x, y)) {
+    int normX;
+    int normY;
+    calcCoords(x, y, normX, normY);
+    TrinketMouse.move(normX, normY, 0, MOUSEBTN_LEFT_MASK);
+  } else {
+    TrinketMouse.move(0, 0, 0, 0); // don't draw, reset cursor
+  }
+}
+
+void moveCursor(float x, float y) {
+  if (checkValid(x, y)) {
+    int normX;
+    int normY;
+    calcCoords(x, y, normX, normY);
+    TrinketMouse.move(normX, normY, 0, 0);
+  } else {
+    TrinketMouse.move(0, 0, 0, 0); // don't move, reset cursor
+  }
+}
