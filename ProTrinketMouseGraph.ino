@@ -41,6 +41,7 @@ void loop() {
     i++;
   } else {
     i = startX;
+    resetCursor();
     delay(5000);
   }
   delay(50);
@@ -49,6 +50,13 @@ void loop() {
 float compute(int x) {
   //return x;
   return pow(x,2);
+}
+
+void resetCursor() {
+  TrinketMouse.move(0, 0, 0, 0); // reset button presses
+  TrinketMouse.move((-1 * currentX), (-1 * currentY), 0, 0);
+  currentX = 0;
+  currentY = 0;
 }
 
 boolean checkValid(float x, float y) {
