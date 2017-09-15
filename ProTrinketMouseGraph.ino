@@ -83,8 +83,8 @@ void drawNext(float x, float y, boolean clickThrough) {
     calcCoords(x, y, normX, normY);
 
     // Loops because it's a short
-    int loopsX = ceil(normX / 127);
-    int loopsY = ceil(normY / 127);
+    int loopsX = ceil(normX / 127.0);
+    int loopsY = ceil(normY / 127.0);
     int totalLoops = abs(loopsX) + abs(loopsY);
 
     for (int j = 0; j < totalLoops; j++) {
