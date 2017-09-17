@@ -7,7 +7,7 @@ int height = 20; // maths units
 int width = 20; // maths units
 int currentX = 0; // screen units
 int currentY = 0; // screen units
-float scaleFactor = 1.0;
+float scaleFactor = 10.0;
 
 void setup() {
   TrinketMouse.begin();
@@ -17,23 +17,15 @@ void loop() {
   if (i == startX) {
     int halfHeight = height / 2;
     int halfWidth = width / 2;
-    drawNext(halfWidth * -1, halfHeight * -1, false);
-    downCursor();
-    drawNext(halfWidth, halfHeight, true);
-    delay(1000);
+    resetCursor();
     drawNext(0, halfHeight, false);
-    delay(1000);
     downCursor();
     drawNext(0, halfHeight * -1, true);
-    delay(1000);
-    resetCursor();
-    delay(1000);
+    upCursor();
     drawNext(halfWidth * -1, 0, false);
-    delay(1000);
     downCursor();
     drawNext(halfWidth, 0, true);
-    delay(1000);
-    resetCursor();
+    upCursor();
   }
 
   /*if (i <= (width - startX)) {
