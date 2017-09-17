@@ -67,37 +67,40 @@ boolean checkValid(float x, float y) {
   return testX && testY;
 }
 
-void scaleCoords(float x, float y, int* resX, int* resY) {
+void scaleCoords(float x, float y, int *resX, int *resY) {
   *resX = round((x - startX) * scaleFactor);
   *resY = round((y - startY) * scaleFactor * -1);
 }
 
-void deltaCoords(float x, float y, int* resX, int* resY) {
+void deltaCoords(float x, float y, int *resX, int *resY) {
   *resX = x - currentX;
   *resY = y - currentY;
 }
 
-void calcCoords(float x, float y, int* resX, int* resY) {
+void calcCoords(float x, float y, int *resX, int *resY) {
   scaleCoords(x, y, resX, resY);
   deltaCoords(*resX, *resY, resX, resY);
-  currentX = currentX + *resX;
-  currentY = currentY + *resY;
+  //currentX = currentX + *resX;
+  //currentY = currentY + *resY;
 }
 
 void drawNext(float x, float y, boolean clickThrough) {
   if (checkValid(x, y)) {
     int mask = clickThrough ? MOUSEBTN_LEFT_MASK : 0;
-    int* normXPtr;
-    int* normYPtr;
-    calcCoords(x, y, normXPtr, normYPtr);
-
-    int normX = *normXPtr;
-    int normY = *normYPtr;
+    int normX;
+    int normY;
+    calcCoords(x, y, &normX, &normY);
+    currentX += normX;
+    currentY += normY;
 
     // Loops because it's a short
-    int loopsX = ceil(normX / 127.0);
-    int loopsY = ceil(normY / 127.0);
-    int totalLoops = abs(loopsX) + abs(loopsY);
+    float balanceX = normX > 0 ? 0.5 : -0.5;
+    float balanceY = normY > 0 ? 0.5 : -0.5;
+    int loopsX = round(normX / 127.0 + balanceX);
+    int loopsY = round(normY / 127.0 + balanceY);
+    int absLoopsX = abs(loopsX);
+    int absLoopsY = abs(loopsY);
+    int totalLoops = max(absLoopsX, absLoopsY);
 
     for (int j = 0; j < totalLoops; j++) {
       int moveX = 0;
