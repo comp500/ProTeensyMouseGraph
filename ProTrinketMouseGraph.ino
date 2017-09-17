@@ -2,12 +2,12 @@
 
 int startX = -10; // maths units
 int startY = 10; // maths units
-int i = startX; // maths units
+float i = startX; // maths units
 int height = 20; // maths units
 int width = 20; // maths units
 int currentX = 0; // screen units
 int currentY = 0; // screen units
-float scaleFactor = 5.0;
+float scaleFactor = 1.0;
 
 void setup() {
   TrinketMouse.begin();
@@ -17,25 +17,36 @@ void loop() {
   if (i == startX) {
     int halfHeight = height / 2;
     int halfWidth = width / 2;
+    drawNext(halfWidth * -1, halfHeight * -1, false);
+    downCursor();
+    drawNext(halfWidth, halfHeight, true);
+    delay(1000);
     drawNext(0, halfHeight, false);
+    delay(1000);
+    downCursor();
     drawNext(0, halfHeight * -1, true);
-    upCursor();
+    delay(1000);
+    resetCursor();
+    delay(1000);
     drawNext(halfWidth * -1, 0, false);
+    delay(1000);
+    downCursor();
     drawNext(halfWidth, 0, true);
-    upCursor();
+    delay(1000);
+    resetCursor();
   }
 
-  if (i <= (width - startX)) {
+  /*if (i <= (width - startX)) {
     // (i*2, 10);
     //drawNext(i*2, -10);
-    drawNext(i, pow(i,2), true);
+    //drawNext(i, i, true);
     i++;
   } else {
     i = startX;
     resetCursor();
-    delay(5000);
-  }
-  delay(200);
+    delay(1000);
+  }*/
+  delay(4000);
 }
 
 float compute(int x) {
@@ -44,10 +55,8 @@ float compute(int x) {
 }
 
 void resetCursor() {
-  TrinketMouse.move(0, 0, 0, 0); // reset button presses
-  TrinketMouse.move((-1 * currentX), (-1 * currentY), 0, 0);
-  currentX = 0;
-  currentY = 0;
+  upCursor();
+  drawNext(startX, startY, false);
 }
 
 boolean checkValid(float x, float y) {
@@ -58,29 +67,32 @@ boolean checkValid(float x, float y) {
   return testX && testY;
 }
 
-void scaleCoords(float x, float y, int &resX, int &resY) {
-  resX = round((x - startX) * scaleFactor);
-  resY = round((y - startY) * scaleFactor * -1);
+void scaleCoords(float x, float y, int* resX, int* resY) {
+  *resX = round((x - startX) * scaleFactor);
+  *resY = round((y - startY) * scaleFactor * -1);
 }
 
-void deltaCoords(float x, float y, int &resX, int &resY) {
-  resX = x - currentX;
-  resY = y - currentY;
+void deltaCoords(float x, float y, int* resX, int* resY) {
+  *resX = x - currentX;
+  *resY = y - currentY;
 }
 
-void calcCoords(float x, float y, int &resX, int &resY) {
+void calcCoords(float x, float y, int* resX, int* resY) {
   scaleCoords(x, y, resX, resY);
-  deltaCoords(resX, resY, resX, resY);
-  currentX = currentX + resX;
-  currentY = currentY + resY;
+  deltaCoords(*resX, *resY, resX, resY);
+  currentX = currentX + *resX;
+  currentY = currentY + *resY;
 }
 
 void drawNext(float x, float y, boolean clickThrough) {
   if (checkValid(x, y)) {
     int mask = clickThrough ? MOUSEBTN_LEFT_MASK : 0;
-    int normX;
-    int normY;
-    calcCoords(x, y, normX, normY);
+    int* normXPtr;
+    int* normYPtr;
+    calcCoords(x, y, normXPtr, normYPtr);
+
+    int normX = *normXPtr;
+    int normY = *normYPtr;
 
     // Loops because it's a short
     int loopsX = ceil(normX / 127.0);
