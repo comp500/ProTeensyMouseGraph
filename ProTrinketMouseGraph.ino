@@ -87,8 +87,8 @@ void drawNext(float x, float y, boolean clickThrough) {
     // Loops because it's a short
     float balanceX = normX > 0 ? 0.5 : -0.5;
     float balanceY = normY > 0 ? 0.5 : -0.5;
-    int loopsX = round(normX / 127.0 + balanceX);
-    int loopsY = round(normY / 127.0 + balanceY);
+    int loopsX = trunc(normX / 127.0 + balanceX);
+    int loopsY = trunc(normY / 127.0 + balanceY);
     int absLoopsX = abs(loopsX);
     int absLoopsY = abs(loopsY);
     int totalLoops = max(absLoopsX, absLoopsY);
