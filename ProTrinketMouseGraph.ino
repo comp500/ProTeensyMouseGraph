@@ -7,7 +7,7 @@ int height = 20; // maths units
 int width = 20; // maths units
 int currentX = 0; // screen units
 int currentY = 0; // screen units
-float scaleFactor = 1.0;
+float scaleFactor = 10.0;
 
 void setup() {
   TrinketMouse.begin();
