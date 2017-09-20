@@ -30,15 +30,15 @@ void loop() {
 
   if (i <= (width - startX)) {
     // (i*2, 10);
-    drawNext(i*2, -10, true);
+    drawNext(i, pow(i,2), true);
     //drawNext(i, i, true);
     i++;
   } else {
     i = startX;
     resetCursor();
-    delay(1000);
+    delay(4000);
   }
-  delay(50);
+  delay(200);
 }
 
 float compute(int x) {
