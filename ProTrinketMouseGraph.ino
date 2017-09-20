@@ -32,7 +32,7 @@ void loop() {
     // (i*2, 10);
     drawNext(i, pow(i/2,2), true);
     //drawNext(i, i, true);
-    i++;
+    i = i + (1 / scaleFactor);
   } else {
     i = startX;
     resetCursor();
