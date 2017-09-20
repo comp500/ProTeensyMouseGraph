@@ -30,7 +30,7 @@ void loop() {
 
   if (i <= (width - startX)) {
     // (i*2, 10);
-    drawNext(i, pow(i,2), true);
+    drawNext(i, pow(i/2,2), true);
     //drawNext(i, i, true);
     i++;
   } else {
@@ -38,7 +38,7 @@ void loop() {
     resetCursor();
     delay(4000);
   }
-  delay(200);
+  delay(50);
 }
 
 float compute(int x) {
