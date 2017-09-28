@@ -1,5 +1,3 @@
-#include <ProTrinketMouse.h>
-
 int startX = -10; // maths units
 int startY = 10; // maths units
 float i = startX; // maths units
@@ -10,7 +8,7 @@ int currentY = 0; // screen units
 float scaleFactor = 6.0;
 
 void setup() {
-  TrinketMouse.begin();
+  // no setup needed
 }
 
 void loop() {
@@ -78,7 +76,6 @@ void calcCoords(float x, float y, int *resX, int *resY) {
 
 void drawNext(float x, float y, boolean clickThrough) {
   if (checkValid(x, y)) {
-    int mask = clickThrough ? MOUSEBTN_LEFT_MASK : 0;
     int normX;
     int normY;
     calcCoords(x, y, &normX, &normY);
@@ -149,20 +146,25 @@ void drawNext(float x, float y, boolean clickThrough) {
           loopsY--;
         }
       }
-      TrinketMouse.move(normX, normY, 0, mask);
+
+      int leftButton = clickThrough ? 1 : 0;
+      Mouse.set_buttons(leftButton, 0, 0);
+      Mouse.move(normX, normY);
+
       currentX += moveX;
       currentY += moveY;
       //delay(200);
     }
   } else {
-    TrinketMouse.move(0, 0, 0, 0); // don't draw, reset cursor
+    upCursor(); // don't draw, reset cursor
   }
 }
 
 void upCursor() {
-  TrinketMouse.move(0, 0, 0, 0); // reset cursor
+  Mouse.set_buttons(0, 0, 0);
+  Mouse.move(0, 0);
 }
 
 void downCursor() {
-  TrinketMouse.move(0, 0, 0, MOUSEBTN_LEFT_MASK);
+  Mouse.set_buttons(1, 0, 0);
 }
