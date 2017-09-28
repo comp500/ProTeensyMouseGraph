@@ -14,20 +14,25 @@ void loop() {
   if (i == startX) {
     int halfHeight = height / 2;
     int halfWidth = width / 2;
-    Mouse.move(halfWidth, 0);
+    Mouse.moveTo(halfWidth, 0);
     Mouse.set_buttons(1, 0, 0);
-    Mouse.move(halfWidth, height);
+    delay(50);
+    Mouse.moveTo(halfWidth, height);
     Mouse.set_buttons(0, 0, 0);
-    Mouse.move(0, halfHeight);
+    delay(50);
+    Mouse.moveTo(0, halfHeight);
     Mouse.set_buttons(1, 0, 0);
-    Mouse.move(width, halfHeight);
+    delay(50);
+    Mouse.moveTo(width, halfHeight);
     Mouse.set_buttons(0, 0, 0);
-    Mouse.move(0, 0);
+    delay(50);
+    Mouse.moveTo(0, 0);
     justReset = true;
+    delay(50);
   }
 
   if (i <= (width - startX)) {
-    Mouse.move(i, pow(i/2,2) * -1);
+    Mouse.moveTo(i, pow(i/2,2) * -1);
     if (justReset) {
       Mouse.set_buttons(1, 0, 0);
       justReset = false;
@@ -36,7 +41,7 @@ void loop() {
   } else {
     i = startX;
     Mouse.set_buttons(0, 0, 0);
-    Mouse.move(0, 0);
+    Mouse.moveTo(0, 0);
     delay(4000);
   }
 
