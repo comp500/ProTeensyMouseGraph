@@ -7,7 +7,6 @@ boolean justReset = false;
 
 void setup() {
   Mouse.screenSize(40, 40);
-  Serial.begin(9600);
 }
 
 void loop() {
@@ -32,7 +31,7 @@ void loop() {
   }
 
   if (i <= (width - startX)) {
-    Mouse.moveTo(i, pow(i/2,2) * -1);
+    Mouse.moveTo(i, (int)(pow(i,2) * -1));
     if (justReset) {
       Mouse.set_buttons(1, 0, 0);
       justReset = false;
